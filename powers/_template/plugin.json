@@ -1,0 +1,35 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ethack-power-template",
+  "version": "0.1.0",
+  "description": "Plantilla del modelo estándar de Power del proyecto Ethical Hacking & Digital Forensics (ULSA). Copiar a powers/<equipo>/<power>/ y completar los campos marcados con TODO. Define el contrato x-ethack que validan el adaptador (scripts/power_adapter.py) y la Validacion_Local.",
+  "author": { "name": "TODO — Alumno/Equipo — ULSA" },
+  "keywords": ["ethical-hacking", "template", "x-ethack"],
+
+  "x-ethack": {
+    "kind": "offensive",
+    "ecCouncilPhase": "Scanning",
+    "forensicsStage": null,
+    "team": "red-team",
+    "owner": "TODO-alumno",
+    "tools": [
+      { "name": "TODO-herramienta", "binary": "TODO-binario", "category": "pentest" }
+    ],
+    "allowlistValidation": {
+      "required": true,
+      "source": "engagements/${ENGAGEMENT_ID}/scope.yaml#assets",
+      "targetParams": ["target", "host", "hostname", "domain", "url"]
+    },
+    "producesActionLog": true,
+
+    "executionMode": {
+      "param": "Modo_Ejecucion",
+      "allowed": ["script-kiddie", "green-hat", "pro"],
+      "default": "script-kiddie"
+    },
+    "documentation": {
+      "root": "powers/${TEAM}/${POWER}/docs",
+      "required": ["prompt.md", "sessions/", "feedback.md"]
+    }
+  }
+}
