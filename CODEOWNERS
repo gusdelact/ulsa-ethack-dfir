@@ -1,0 +1,75 @@
+# ============================================================================
+# CODEOWNERS — Repositorio_Base / Repositorio_Integracion
+# (ethical-hacking-forensics-agent) · Tarea 15.2 [Baseline — Docente] · Req 20.4
+# ============================================================================
+#
+# La RAÍZ del repositorio es la carpeta del workspace (ethicalforensic/), porque
+# `powers/` y `.kiro/` viven ahí y son parte del proyecto. El código del agente
+# generado por el spec está concentrado en `agent_ethack_dfir/` (agents/, scripts/,
+# engagements/). GitHub solo honra el CODEOWNERS ubicado en la raíz del repo, en
+# `.github/` o en `docs/`: por eso este archivo vive en la raíz.
+#
+# Este archivo asigna la PROPIEDAD de cada ruta a un alumno/equipo responsable,
+# de modo que un Pull Request que toque esa ruta dispare la revisión del dueño.
+# Regla de GitHub: GANA LA ÚLTIMA COINCIDENCIA.
+#
+# ----------------------------------------------------------------------------
+# CÓMO USAR ESTE ARCHIVO (lo hace el DOCENTE / Líder Técnico)
+# ----------------------------------------------------------------------------
+# Los identificadores de abajo son PLACEHOLDERS, no handles reales de GitHub.
+# Antes de publicar el repositorio, reemplaza cada placeholder por el handle real
+# del alumno o equipo (con @), p. ej.:
+#
+#     @equipo-red-team-1   ->   @ana-perez
+#     @lider-tecnico       ->   @prof-garcia
+#     @docente             ->   @prof-garcia
+#
+# Reglas de reemplazo:
+#   1) Un handle de GitHub empieza por "@". Los equipos: @org/nombre-equipo.
+#   2) Sustituye TODAS las apariciones del mismo placeholder por el mismo handle.
+#   3) No borres los comentarios: explican la intención de cada bloque.
+#   4) Para atribuir un Power concreto a su autor, añade una línea más específica
+#      al final del bloque del equipo (la última coincidencia gana). Ejemplo:
+#          /powers/red-team/covering-tracks/   @ana-perez
+#
+# ----------------------------------------------------------------------------
+# 1) RUTAS COMPARTIDAS  ->  Líder Técnico + Docente
+# ----------------------------------------------------------------------------
+# Código del agente (en agent_ethack_dfir/), configuración de Kiro y archivos de
+# colaboración de la raíz. Un PR que los toque requiere revisión del Líder
+# Técnico/docente para evitar escrituras no coordinadas.
+
+/agent_ethack_dfir/agents/orquestador/   @lider-tecnico @docente
+/agent_ethack_dfir/agents/fases/          @lider-tecnico @docente
+/agent_ethack_dfir/agents/roles/          @lider-tecnico @docente
+/agent_ethack_dfir/scripts/               @lider-tecnico @docente
+/agent_ethack_dfir/engagements/           @lider-tecnico @docente
+/.kiro/                                    @lider-tecnico @docente
+/.github/                                  @lider-tecnico @docente
+/CONTRIBUTING.md                           @lider-tecnico @docente
+/CODEOWNERS                                @lider-tecnico @docente
+/Makefile                                  @lider-tecnico @docente
+
+# inventory.json es GENERADO por el Catalogador; NO se edita a mano (Req 20.9).
+# Se asigna al Líder Técnico/docente para bloquear ediciones manuales en PRs.
+/agent_ethack_dfir/engagements/*/inventory.json  @lider-tecnico @docente
+
+# ----------------------------------------------------------------------------
+# 2) CARPETAS DE POWER POR EQUIPO  ->  equipo/alumno responsable
+# ----------------------------------------------------------------------------
+# Las carpetas de Power por equipo viven en powers/ en la raíz (powers/ NO se
+# movió a agent_ethack_dfir/). Cada equipo es dueño de su carpeta powers/<equipo>/.
+# El aislamiento por carpeta evita colisiones de merge entre alumnos. El docente
+# puede sustituir el placeholder de equipo por un @org/equipo o por los handles
+# individuales, y añadir líneas por Power para atribuir autores concretos.
+
+/powers/red-team/           @equipo-red-team-1          # Red Team
+/powers/blue-team/          @equipo-blue-team-1         # Blue Team
+/powers/digital-forensics/  @equipo-digital-forensics-1 # Digital Forensics
+/powers/grc/                @equipo-grc-1               # GRC
+/powers/incident-responder/ @equipo-incident-responder-1 # Incident Responder
+
+# Los 9 Powers base viven en powers/<nombre>/ (un solo nivel) y son del Líder
+# Técnico/docente; no se mueven ni se recrean (ver powers/README.md).
+/powers/README.md           @lider-tecnico @docente
+/powers/_template/          @lider-tecnico @docente
