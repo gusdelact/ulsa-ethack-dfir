@@ -1,1 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.hypothesis/
 
+# Kiro / auditoría local (se regenera; no versionar)
+local-audit/
+
+# Secretos y credenciales — NUNCA versionar
+*.pem
+*.key
+*.ppk
+.env
+.env.*
+awskeys/
+
+# SO / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Artefactos generados que NO se editan a mano
+# (inventory.json se regenera con `make catalog`; se deja versionado como referencia,
+#  descomenta la línea siguiente si prefieres regenerarlo siempre en local)
+# agent_ethack_dfir/engagements/*/inventory.json
