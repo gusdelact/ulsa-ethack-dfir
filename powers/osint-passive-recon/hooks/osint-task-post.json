@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "OSINT: interpretación al cerrar la tarea",
+      "trigger": "PostTaskExec",
+      "description": "Al cerrar cada tarea del Spec OSINT, pide al alumno interpretar los resultados y decidir el siguiente ciclo.",
+      "action": {
+        "type": "agent",
+        "prompt": "Si la tarea que acaba de terminar pertenece a un Spec en .kiro/specs/osint-*/: (1) lista los archivos de herramientas/ que produjo esta tarea, con una línea por archivo sobre qué devolvió (sin interpretar); (2) pide al alumno que clasifique lo observado en HECHO / INFERENCIA / HIPÓTESIS, que diga si se cumplen los criterios de aceptación del requisito y si algún hallazgo abre un nuevo ciclo; (3) si contradice algo con los datos (p. ej. lee \"sin SPF\" como suplantable pese a DMARC p=reject), señálalo con la regla de osint-infraestructura-dominio.md y pídele que lo reconsidere; (4) si el alumno concluye que falta algo, añade una subtarea en tasks.md en vez de dar la tarea por buena; (5) anota su respuesta en bitacora-decisiones.md. Si la tarea no es de un Spec OSINT, ignora esta instrucción."
+      }
+    }
+  ]
+}

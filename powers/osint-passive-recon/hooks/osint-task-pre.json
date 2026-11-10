@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "OSINT: hipótesis antes de la tarea",
+      "trigger": "PreTaskExec",
+      "description": "Antes de cada tarea del Spec OSINT, pide al alumno su hipótesis y la pregunta que la tarea responde.",
+      "action": {
+        "type": "agent",
+        "prompt": "Si la tarea que va a empezar pertenece a un Spec en .kiro/specs/osint-*/, antes de llamar a cualquier herramienta: (1) muestra al alumno qué requisito de requirements.md responde esta tarea y qué hipótesis escribió para esa categoría en design.md; (2) pídele que diga con sus palabras qué espera encontrar, qué resultado le haría cambiar de idea y por qué las consultas previstas son pasivas; (3) no ejecutes herramientas hasta recibir una respuesta con razonamiento (rechaza \"hazlo\", \"no sé\" o copiar el enunciado; puedes dar una pista, no la respuesta); (4) anota pregunta y respuesta en evidencia/osint/<objetivo>-<fecha>/bitacora-decisiones.md con fecha UTC. Dentro de la tarea no escribas tarjetas por herramienta. Si la tarea no es de un Spec OSINT, ignora esta instrucción."
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "OSINT comprehension gate",
+      "trigger": "PreToolUse",
+      "matcher": "search_rdap|search_whois|search_dns|search_ip|generate_dorks|search_paste|search_github|crtsh_certificate_search|wayback_snapshots|whois_lookup|dns_lookup|exiftool_metadata",
+      "action": {
+        "type": "command",
+        "command": "printf '%s' '{\"hookSpecificOutput\":{\"permissionDecision\":\"ask\",\"permissionDecisionReason\":\"Compuerta OSINT. Antes de aprobar lee la TARJETA DE DECISION que el agente escribio arriba: que consulta, que envia y a quien, por que es pasiva, que decide el alumno. Aprueba SOLO si (1) el objetivo es el autorizado en 00-alcance.md, (2) la consulta NO toca al objetivo, (3) puedes decir en una frase que duda resuelve. Si no lo tienes claro, cancela y pide al agente que lo explique.\"}}'"
+      }
+    }
+  ]
+}
