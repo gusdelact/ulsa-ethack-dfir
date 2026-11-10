@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "thehive": {
+      "command": "mcp-server-thehive",
+      "args": [],
+      "env": {
+        "THEHIVE_URL": "${THEHIVE_URL}",
+        "THEHIVE_API_TOKEN": "${THEHIVE_API_TOKEN}",
+        "VERIFY_SSL": "false",
+        "RUST_LOG": "warn"
+      }
+    },
+    "virustotal": {
+      "command": "npx",
+      "args": ["-y", "@burtthecoder/mcp-virustotal@1.0.38"],
+      "env": {
+        "VIRUSTOTAL_API_KEY": "${VIRUSTOTAL_API_KEY}"
+      }
+    },
+    "wazuh": {
+      "command": "mcp-server-wazuh",
+      "args": [],
+      "disabled": true,
+      "env": {
+        "WAZUH_API_HOST": "${WAZUH_API_HOST}",
+        "WAZUH_API_PORT": "55000",
+        "WAZUH_API_USERNAME": "${WAZUH_API_USERNAME}",
+        "WAZUH_API_PASSWORD": "${WAZUH_API_PASSWORD}",
+        "WAZUH_INDEXER_HOST": "${WAZUH_INDEXER_HOST}",
+        "WAZUH_INDEXER_PORT": "9200",
+        "WAZUH_INDEXER_USERNAME": "${WAZUH_INDEXER_USERNAME}",
+        "WAZUH_INDEXER_PASSWORD": "${WAZUH_INDEXER_PASSWORD}",
+        "WAZUH_VERIFY_SSL": "false",
+        "WAZUH_TEST_PROTOCOL": "https",
+        "RUST_LOG": "warn"
+      }
+    }
+  }
+}
