@@ -1,1 +1,53 @@
-
+{
+  "mcpServers": {
+    "openosint": {
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "--from",
+        "openosint==2.36.1",
+        "openosint-mcp"
+      ],
+      "disabledTools": [
+        "search_breach",
+        "search_shodan",
+        "search_virustotal",
+        "search_censys",
+        "search_ip2location",
+        "search_abuseipdb",
+        "search_dorks_live",
+        "search_footprint",
+        "graph_export",
+        "graph_neighbors",
+        "graph_review_candidates",
+        "investigate_multi",
+        "search_gdelt_geo"
+      ],
+      "disabled": true
+    },
+    "osint-toolbox": {
+      "command": "uvx",
+      "args": [
+        "osint-toolbox-mcp@1.1.0"
+      ],
+      "env": {
+        "OSINT_SHERLOCK": "/nonexistent/disabled",
+        "OSINT_MAIGRET": "/nonexistent/disabled",
+        "OSINT_HOLEHE": "/nonexistent/disabled",
+        "OSINT_GHUNT": "/nonexistent/disabled",
+        "OSINT_THEHARVESTER": "/nonexistent/disabled",
+        "OSINT_SUBFINDER": "/nonexistent/disabled",
+        "OSINT_DNSTWIST": "/nonexistent/disabled",
+        "OSINT_DNSRECON": "/nonexistent/disabled",
+        "OSINT_PHONEINFOGA": "/nonexistent/disabled",
+        "OSINT_SPIDERFOOT_DIR": "/nonexistent/disabled",
+        "OSINT_BLACKBIRD_DIR": "/nonexistent/disabled"
+      },
+      "disabledTools": [
+        "whois_lookup"
+      ],
+      "disabled": true
+    }
+  }
+}

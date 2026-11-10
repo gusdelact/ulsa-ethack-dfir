@@ -1,0 +1,27 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "autorizacion-simulada-pretool",
+      "trigger": "PreToolUse",
+      "matcher": "@mcp",
+      "description": "Hook_Autorizacion didactico: evalua EH_GRANT_PATH, registra y advierte sin bloquear (Req 10.1-10.3).",
+      "action": {
+        "type": "command",
+        "command": "python3 agent_ethack_dfir/scripts/gate_mcp_sim.py"
+      },
+      "timeout": 10
+    },
+    {
+      "name": "auditoria-posttool",
+      "trigger": "PostToolUse",
+      "matcher": "@mcp",
+      "description": "Hook_Auditoria: resumen + sha256 + Modo_Ejecucion del evento en local-audit/events.jsonl (Req 10.4, 14.6).",
+      "action": {
+        "type": "command",
+        "command": "python3 agent_ethack_dfir/scripts/audit_event.py"
+      },
+      "timeout": 10
+    }
+  ]
+}
