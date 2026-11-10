@@ -1,0 +1,14 @@
+{
+  "_comment": "PLANTILLA/EJEMPLO documentado del Perfil_CSF del Responsable_GRC (design.md 'Artefactos GRC'). target_tier ∈ 1..4 (Req 19.4). subcategories: perfil actual vs objetivo por subcategoria con gap booleano (Req 6.9, 19.4). INVARIANTE: el conjunto de csf_subcategory del POA&M es EXACTAMENTE el conjunto de subcategorias con gap==true, y cada brecha genera un riesgo en risk_register.json (Req 6.9, 19.5). Todo hallazgo tecnico referenciado se vincula a una subcategoria CSF como evidencia (Req 6.10, 19.6). Ver Req 6.9, 19.4, 19.5.",
+  "engagement_id": "dvwa-lab-ulsa",
+  "target_tier": 3,
+  "subcategories": [
+    { "id": "ID.RA", "current": "partial", "target": "achieved", "gap": true, "evidence_refs": ["finding-va-02"] },
+    { "id": "DE.CM", "current": "achieved", "target": "achieved", "gap": false, "evidence_refs": ["finding-blue-01"] },
+    { "id": "RS.AN", "current": "partial", "target": "achieved", "gap": true, "evidence_refs": ["mem-dvwa-01-0001"] }
+  ],
+  "poam": [
+    { "poam_id": "poam-03", "csf_subcategory": "ID.RA", "milestone": "parchar y validar", "risk_id": "r-01" },
+    { "poam_id": "poam-04", "csf_subcategory": "RS.AN", "milestone": "automatizar preservacion", "risk_id": "r-02" }
+  ]
+}

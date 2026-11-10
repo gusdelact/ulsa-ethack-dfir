@@ -1,0 +1,48 @@
+{
+  "_comment": "PLANTILLA/EJEMPLO documentado del registro de incidente del Incident Responder (design.md 'Registro de incidente'). nist_phase ∈ las 4 fases NIST SP 800-61; phase_history refleja el ciclo iterativo (las lecciones de Post-Incident retroalimentan Preparation, Req 18.7). Cada IOC declara format ∈ {STIX, YARA, OpenIOC} + mapeo MITRE ATT&CK / Cyber Kill Chain (Req 18.9, 18.10). Acciones short-term NO apagan (shutdown:false) y preservan evidencia (preserves_evidence:true) (Req 7.7, 18.5). evidence_refs enlaza la evidencia preservada por DF (Req 7.4, 7.8, 18.8). Ver también Req 7.6, 7.9, 18.2.",
+  "incident_id": "inc-0001",
+  "engagement_id": "dvwa-lab-ulsa",
+  "opened_at_utc": "2026-03-10T13:31:00Z",
+  "nist_phase": "Containment, Eradication & Recovery",
+  "phase_history": [
+    { "phase": "Preparation", "entered_utc": "2026-02-01T00:00:00Z" },
+    { "phase": "Detection & Analysis", "entered_utc": "2026-03-10T13:31:00Z" },
+    { "phase": "Containment, Eradication & Recovery", "entered_utc": "2026-03-10T14:00:00Z" }
+  ],
+  "detection_source": "blue-team",
+  "timeline": [
+    { "ts_utc": "2026-03-10T13:31:00Z", "host": "dvwa-01", "event": "SQLi detectada en DVWA", "source": "waf-log" }
+  ],
+  "iocs": [
+    {
+      "ioc_id": "ioc-01",
+      "type": "ipv4-addr",
+      "value": "203.0.113.50",
+      "format": "STIX",
+      "kill_chain_stage": "Command and Control",
+      "attack": { "tactic": "Command and Control", "technique": "T1071" }
+    }
+  ],
+  "containment_actions": [
+    {
+      "action": "aislar Contenedor_Objetivo (SG cuarentena + NACL)",
+      "type": "short-term",
+      "shutdown": false,
+      "preserves_evidence": true,
+      "ts_utc": "2026-03-10T14:00:00Z"
+    },
+    {
+      "action": "rotar credenciales y aplicar parche",
+      "type": "long-term",
+      "shutdown": false,
+      "preserves_evidence": false,
+      "ts_utc": "2026-03-11T10:00:00Z"
+    }
+  ],
+  "escalations": [
+    { "reason": "AssumeRole hacia otra cuenta (movimiento lateral)", "to": "cloud-ops", "ts_utc": "2026-03-10T15:00:00Z" }
+  ],
+  "evidence_refs": ["mem-dvwa-01-0001"],
+  "csf_subcategories": ["RS.AN", "RS.MI", "RC.RP"],
+  "post_incident": { "report": null, "lessons_learned": [] }
+}

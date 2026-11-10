@@ -1,0 +1,109 @@
+{
+  "_comment": "Incidente REAL del Incident Responder (Req 18.x) para el PoC de pentest autorizado contra dvwa-01. Ciclo NIST SP 800-61: Preparation (ventana abierta en scope.yaml) -> Detection & Analysis (PoC demostro CWE-78). Containment pendiente del Blue Team (hueco conocido de baseline). IOCs en formato STIX-like con mapeo a MITRE ATT&CK v16 y a Cyber Kill Chain (Req 18.9, 18.10). Evidencia referida (Req 7.4, 7.8, 18.8) a scan-dvwa-01-0001 y webex-dvwa-01-0001, cadena de custodia enlazada por prev_sha256.",
+  "incident_id": "inc-0002",
+  "engagement_id": "dvwa-lab-ulsa",
+  "opened_at_utc": "2026-11-10T18:55:10Z",
+  "nist_phase": "Detection & Analysis",
+  "phase_history": [
+    { "phase": "Preparation",          "entered_utc": "2026-11-10T00:00:00Z", "note": "ventana autorizada abierta en scope.yaml" },
+    { "phase": "Detection & Analysis", "entered_utc": "2026-11-10T18:55:10Z", "note": "PoC confirma OS Command Injection (uid=www-data) en /vulnerabilities/exec/" }
+  ],
+  "detection_source": "red-team (pentest autorizado)",
+  "severity": "Critical",
+  "severity_justification": "CWE-78 explotable sin autenticacion previa al nivel Low, RCE como www-data demostrada; CVSS v3 estimado 9.8",
+  "timeline": [
+    { "ts_utc": "2026-11-10T18:53:01Z", "host": "dvwa-01", "event": "Enumeracion de servicio: Apache 2.4.25, DVWA v1.10, cookies sin HttpOnly/Secure",        "source": "nmap (scan-dvwa-01-0001)" },
+    { "ts_utc": "2026-11-10T18:55:10Z", "host": "dvwa-01", "event": "Explotacion: payload ';id' tras parametro 'ip'; servidor devuelve uid=33(www-data)",     "source": "curl (webex-dvwa-01-0001, gaining)" },
+    { "ts_utc": "2026-11-10T18:57:09Z", "host": "dvwa-01", "event": "Sesion autenticada reutilizada 2m despues sin re-login (cookie PHPSESSID)",              "source": "curl (webex-dvwa-01-0001, maintaining)" },
+    { "ts_utc": "2026-11-10T18:57:30Z", "host": "dvwa-01", "event": "Verificacion de no-persistencia: ls /var/www/html/vulnerabilities/exec/ = help, index.php, source", "source": "curl (webex-dvwa-01-0001, maintaining)" },
+    { "ts_utc": "2026-11-10T19:01:11Z", "host": "workstation", "event": "DF transfiere y preserva evidencia; hashes verificados contra Kali",                "source": "digital-forensics (chain_of_custody.jsonl)" }
+  ],
+  "iocs": [
+    {
+      "ioc_id": "ioc-01",
+      "type": "url",
+      "value": "http://10.50.0.224/vulnerabilities/exec/",
+      "format": "STIX",
+      "kill_chain_stage": "Exploitation",
+      "attack": { "tactic": "Initial Access", "technique": "T1190", "technique_name": "Exploit Public-Facing Application" },
+      "verified": true
+    },
+    {
+      "ioc_id": "ioc-02",
+      "type": "payload",
+      "value": "ip=127.0.0.1;id",
+      "format": "STIX",
+      "kill_chain_stage": "Exploitation",
+      "attack": { "tactic": "Execution", "technique": "T1059", "technique_name": "Command and Scripting Interpreter" },
+      "verified": true,
+      "note": "payload mínimo probatorio; también se envio ';hostname' en maintaining"
+    },
+    {
+      "ioc_id": "ioc-03",
+      "type": "process-output",
+      "value": "uid=33(www-data) gid=33(www-data) groups=33(www-data)",
+      "format": "STIX",
+      "kill_chain_stage": "Exploitation",
+      "attack": { "tactic": "Discovery", "technique": "T1033", "technique_name": "System Owner/User Discovery" },
+      "verified": true
+    },
+    {
+      "ioc_id": "ioc-04",
+      "type": "hostname",
+      "value": "1288e81c1735",
+      "format": "STIX",
+      "kill_chain_stage": "Exploitation",
+      "attack": { "tactic": "Discovery", "technique": "T1082", "technique_name": "System Information Discovery" },
+      "verified": true,
+      "note": "formato 12-hex sugiere contenedor Docker dentro de la EC2 anfitriona"
+    },
+    {
+      "ioc_id": "ioc-05",
+      "type": "http-cookie",
+      "value": "PHPSESSID (sin HttpOnly, sin Secure, sin SameSite)",
+      "format": "STIX",
+      "kill_chain_stage": "Command and Control",
+      "attack": { "tactic": "Lateral Movement", "technique": "T1550.004", "technique_name": "Use Alternate Authentication Material: Web Session Cookie" },
+      "verified": true,
+      "note": "mismo PHPSESSID reutilizado 2m07s despues sin re-autenticar"
+    },
+    {
+      "ioc_id": "ioc-06",
+      "type": "scan-signature",
+      "value": "nmap -Pn -sV -p 80 --script=http-title,http-server-header,http-headers 10.50.0.224",
+      "format": "STIX",
+      "kill_chain_stage": "Reconnaissance",
+      "attack": { "tactic": "Reconnaissance", "technique": "T1595.002", "technique_name": "Active Scanning: Vulnerability Scanning" },
+      "verified": true
+    }
+  ],
+  "containment_actions": [
+    {
+      "action": "Confirmar no-persistencia: ls /var/www/html/vulnerabilities/exec/ a traves del propio PoC; sin webshell ni archivo extra",
+      "type": "detection-only",
+      "shutdown": false,
+      "preserves_evidence": true,
+      "ts_utc": "2026-11-10T18:57:30Z"
+    }
+  ],
+  "containment_pending": [
+    { "action": "Desactivar el módulo exec en DVWA (o parchear concat en shell_exec)", "owner": "blue-team", "reason": "Fase Containment del ciclo NIST pendiente; Blue Team es hueco de baseline" },
+    { "action": "Fijar PHPSESSID con HttpOnly + Secure + SameSite=Strict; rotar la cookie tras login", "owner": "blue-team", "reason": "Mitiga reutilizacion de sesion (ioc-05)" },
+    { "action": "Mover 'security' a estado del servidor; no decidir el nivel desde una cookie del cliente", "owner": "blue-team", "reason": "Control del lado del cliente" },
+    { "action": "Añadir cabeceras HSTS, X-Frame-Options, X-Content-Type-Options, CSP; desactivar banner 'Server'", "owner": "blue-team", "reason": "Hardening baseline" },
+    { "action": "Aislar el contenedor DVWA si se reproduce fuera del lab (SG cuarentena + NACL)", "owner": "blue-team", "reason": "short-term containment si pasa a un entorno con datos" }
+  ],
+  "escalations": [],
+  "evidence_refs": ["scan-dvwa-01-0001", "webex-dvwa-01-0001"],
+  "csf_subcategories": ["DE.CM-01", "DE.AE-02", "RS.MA-02", "RS.AN-03", "RS.AN-07", "PR.AA-05", "PR.PS-04", "PR.PS-06"],
+  "attack_techniques_summary": ["T1595.002", "T1190", "T1059", "T1033", "T1082", "T1550.004"],
+  "post_incident": {
+    "report": null,
+    "lessons_learned": [
+      "DVWA en nivel Low sirve como prueba viva de CWE-78; el mismo patron de concatenacion shell_exec($cmd.$ip) aparece en codigo real sin escape",
+      "El diseño de 'security' como cookie es un anti-patron de autorizacion del lado del cliente",
+      "Sin HttpOnly, una vulnerabilidad XSS reflejada en el mismo sitio convertiria la cookie en vector de pivot (ioc-05)",
+      "El scope termina la ventana a las 23:59:59Z; cualquier actividad post-ventana requiere re-aprobacion (authorization-first)"
+    ]
+  }
+}

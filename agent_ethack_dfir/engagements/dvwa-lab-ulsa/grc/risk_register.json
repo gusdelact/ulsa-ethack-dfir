@@ -1,0 +1,42 @@
+{
+  "_comment": "PLANTILLA/EJEMPLO documentado del Registro_Riesgos del Responsable_GRC (design.md 'Artefactos GRC'). Cada riesgo: probabilidad × impacto = inherent_score, dueño, tratamiento ∈ {mitigar, transferir, aceptar, evitar}, residual_score, within_appetite == (residual_score <= risk_appetite.max_residual_score) (Req 6.7, 6.8), csf_subcategory (método estandarizado GV.RM-06, Req 19.3) y evidence_refs a hallazgos técnicos (Req 6.10, 19.6). Cada brecha del csf_profile genera aquí un riesgo (Req 19.5). Ver Req 6.7, 6.8, 6.10, 19.3, 19.5.",
+  "engagement_id": "dvwa-lab-ulsa",
+  "risk_appetite": {
+    "max_residual_score": 8,
+    "scale": "5x5 (prob x impacto)"
+  },
+  "risks": [
+    {
+      "risk_id": "r-01",
+      "description": "SQLi en DVWA permite exfiltracion de datos de clientes",
+      "owner": "lider-tecnico",
+      "probability": 4,
+      "impact": 4,
+      "inherent_score": 16,
+      "treatment": "mitigar",
+      "residual_probability": 2,
+      "residual_impact": 4,
+      "residual_score": 8,
+      "within_appetite": true,
+      "csf_subcategory": "ID.RA",
+      "evidence_refs": ["finding-redteam-07"],
+      "source_gap": "poam-03"
+    },
+    {
+      "risk_id": "r-02",
+      "description": "Evidencia efimera en Contenedor_Objetivo puede perderse antes de preservarla",
+      "owner": "alumno-df-1",
+      "probability": 3,
+      "impact": 4,
+      "inherent_score": 12,
+      "treatment": "mitigar",
+      "residual_probability": 2,
+      "residual_impact": 3,
+      "residual_score": 6,
+      "within_appetite": true,
+      "csf_subcategory": "RS.AN",
+      "evidence_refs": ["mem-dvwa-01-0001"],
+      "source_gap": "poam-04"
+    }
+  ]
+}

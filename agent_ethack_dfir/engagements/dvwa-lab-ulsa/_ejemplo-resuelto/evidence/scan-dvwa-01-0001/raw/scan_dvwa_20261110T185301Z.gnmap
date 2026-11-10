@@ -1,0 +1,4 @@
+# Nmap 7.99 scan initiated Tue Nov 10 18:53:01 2026 as: /usr/lib/nmap/nmap --privileged -Pn -sV -p 80 --script=http-title,http-server-header,http-headers -oA scan_dvwa_20261110T185301Z 10.50.0.224
+Host: 10.50.0.224 (ip-10-50-0-224.ec2.internal)	Status: Up
+Host: 10.50.0.224 (ip-10-50-0-224.ec2.internal)	Ports: 80/open/tcp//http//Apache httpd 2.4.25 ((Debian))/
+# Nmap done at Tue Nov 10 18:53:11 2026 -- 1 IP address (1 host up) scanned in 9.86 seconds

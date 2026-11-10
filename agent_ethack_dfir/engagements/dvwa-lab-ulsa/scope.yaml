@@ -1,0 +1,113 @@
+# =============================================================================
+# scope.yaml — Allowlist_Objetivos del engagement "dvwa-lab-ulsa"
+# -----------------------------------------------------------------------------
+# Única fuente de objetivos válidos del Entorno_Laboratorio (Req 6.3, 11.1,
+# 12.1, 12.3, 12.5). Lo mantiene el Responsable_GRC / Líder Técnico (Req 6.3).
+#
+# Modelo (design.md "Allowlist_Objetivos"): cada `asset` es un
+# Contenedor_Objetivo (unidad de la prueba de penetración, Req 12.2) que corre
+# sobre su host EC2 Debian anfitrión. El host se declara NO-objetivo
+# (`host_is_target: false`) salvo autorización explícita, de modo que la guardia
+# (scripts/validate_target.py, tarea 1.3) dirige la actividad al
+# contenedor/servicio y se abstiene de explotar el host subyacente
+# (Req 11.4, 12.2, 12.3).
+#
+# Alta/baja de un Contenedor_Objetivo o nodo => editar `assets` para reflejar
+# los objetivos autorizados vigentes como único conjunto válido (Req 12.5, 12.6).
+# =============================================================================
+
+engagement_id: dvwa-lab-ulsa
+owner: lider-tecnico
+status: approved                 # draft | approved | closed
+
+# Ventana autorizada del engagement (Req 11.6): fuera de ella no hay actividad.
+# Validación local (docente): ventana acotada a todo el día de hoy (UTC).
+# Ventana original del engagement: start 2026-02-01, end 2026-06-30.
+authorized_window:
+  start: "2026-11-10T00:00:00Z"
+  end: "2026-11-10T23:59:59Z"
+
+# --- Allowlist_Objetivos: Contenedores_Objetivo autorizados (Req 12.2, 12.3, 12.5) ---
+assets:
+
+  # 1) DVWA web (caso de referencia "ethicalhacking"). Objetivo canónico Req 12.1.
+  #    Pasada real (lab AWS, stack ethack-footprinting-lab, perfil cibgusdelact):
+  #      - DVWA EC2 i-0b173b90eb54b63cb (IP publica 100.31.187.69, privada 10.50.0.224)
+  #      - Kali EC2 i-0d16e800fbba08eac (IP publica 44.213.147.197, privada 10.50.0.248)
+  #    Puerto 80/tcp. Login admin/password; base inicializada.
+  #    Variantes anteriores (dejadas en comentario para restaurar si hace falta):
+  #      - Local docente: target_host=localhost / 127.0.0.1, port 8080.
+  #      - Config EC2 original: target_host 10.0.10.21, hostname dvwa-01.lab.ulsa.
+  - id: dvwa-01
+    kind: container                      # unidad objetivo = Contenedor_Objetivo (Req 12.2)
+    service: dvwa-web
+    # objetivo autorizado: el servicio DVWA en la EC2 del lab
+    target_host: 100.31.187.69           # IP publica DVWA (via prefix list alumnos-ethack)
+    target_hostname: 10.50.0.224         # IP privada DVWA (via tunel SSH por la Kali)
+    target_port: 80                      # puerto expuesto por DVWA
+    container_id: dvwa-ec2-i-0b173b90eb54b63cb
+    container_image: vulnerables/web-dvwa
+    # host EC2 anfitrion: NO-objetivo salvo autorizacion explicita (Req 11.4, 12.3)
+    ec2_host: 100.31.187.69
+    ec2_hostname: 10.50.0.224
+    host_is_target: false                # true solo si la Allowlist autoriza el host
+    source_case: ethicalhacking          # caso de referencia (Req 12.4)
+
+  # 2) Servicios FTP/SMB del caso "footprinting" / "nmap_enumeration" (10.50.0.55).
+  #    Enumerados con sesión nula; modelados como Contenedor_Objetivo de servicios.
+  - id: infra-smb-01
+    kind: container
+    service: smb-samba
+    target_host: 10.50.0.55
+    target_hostname: mail1.inlanefreight.htb
+    target_port: 445
+    container_id: samba_svc_1
+    container_image: dperson/samba
+    ec2_host: 10.50.0.55
+    ec2_hostname: ip-10-50-0-55.ec2.internal
+    host_is_target: false
+    source_case: footprinting
+
+  # 3) Servicio MySQL del caso "nmap_enumeration" (10.50.0.55:3306).
+  - id: infra-mysql-01
+    kind: container
+    service: mysql
+    target_host: 10.50.0.55
+    target_hostname: mail1.inlanefreight.htb
+    target_port: 3306
+    container_id: mysql_svc_1
+    container_image: mysql:8.0
+    ec2_host: 10.50.0.55
+    ec2_hostname: ip-10-50-0-55.ec2.internal
+    host_is_target: false
+    source_case: nmap_enumeration
+
+  # 4) Servicio SMTP/IMAP del caso "nmap_enumeration" (mail1.inlanefreight.htb).
+  - id: infra-smtp-01
+    kind: container
+    service: smtp-imap
+    target_host: 10.50.0.55
+    target_hostname: mail1.inlanefreight.htb
+    target_port: 25
+    container_id: mail_svc_1
+    container_image: mailserver/docker-mailserver
+    ec2_host: 10.50.0.55
+    ec2_hostname: ip-10-50-0-55.ec2.internal
+    host_is_target: false
+    source_case: nmap_enumeration
+
+# Principios_Eticos aplicables al engagement (Req 6.4, 11.4, 11.5).
+ethical_principles:
+  - authorization-first
+  - scope-discipline
+  - do-no-harm
+  - confidentiality
+  - full-disclosure
+  - legal-compliance
+
+# Acciones prohibidas: refuerzan Do No Harm / Scope Discipline (Req 11.3, 11.5).
+prohibited_actions:
+  - acceder_a_produccion
+  - persistencia_oculta
+  - exfiltracion
+  - denegacion_de_servicio

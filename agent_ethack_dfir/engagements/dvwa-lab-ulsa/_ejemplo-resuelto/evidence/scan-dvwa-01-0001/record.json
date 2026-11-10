@@ -1,0 +1,37 @@
+{
+  "_comment": "Evidencia REAL de la Fase 2 (Scanning) del engagement dvwa-lab-ulsa. Salida nmap en 4 formatos (nmap, xml, gnmap, log). Documentation & Reproducibility (Req 16.4): comando, UTC, herramienta, versión, resultado; sha256 del artefacto principal (Req 5.3); volatility_rank 5 (disco) pues la salida de red se materializó en archivos; RFC 3227 (Req 5.6, 16.1). Ver evidence/README.md.",
+  "evidence_id": "scan-dvwa-01-0001",
+  "source_asset": "dvwa-01",
+  "collected_by": "agente-kiro",
+  "collected_at_utc": "2026-11-10T18:53:01Z",
+  "tool": "nmap",
+  "tool_version": "7.99",
+  "command": "nmap -Pn -sV -p 80 --script=http-title,http-server-header,http-headers -oA scan_dvwa_20261110T185301Z 10.50.0.224",
+  "result": "Puerto 80/tcp abierto; Apache httpd 2.4.25 (Debian); http-title 'Login :: Damn Vulnerable Web Application (DVWA) v1.10 *Develop...'; sin cabeceras de seguridad; cookies PHPSESSID y security=low sin HttpOnly/Secure; 4 archivos de salida en raw/.",
+  "sha256": "d52839283661afda4707e9f9f79e3966c0bc44b7d4556c141bd539965e287f51",
+  "volatility_rank": 5,
+  "storage": "append-only://evidence/scan-dvwa-01-0001/raw/",
+  "related_phase": "Scanning",
+  "artifacts": [
+    {
+      "path": "raw/scan_dvwa_20261110T185301Z.xml",
+      "sha256": "d52839283661afda4707e9f9f79e3966c0bc44b7d4556c141bd539965e287f51",
+      "role": "principal"
+    },
+    {
+      "path": "raw/scan_dvwa_20261110T185301Z.nmap",
+      "sha256": "d4a5797e4b049248b4512a0bde9ebe0be391c78063b48d0b9706a786c1e97f74",
+      "role": "informe"
+    },
+    {
+      "path": "raw/scan_dvwa_20261110T185301Z.gnmap",
+      "sha256": "92db90e48fdfe4b99f9210cdf1e56bb57b6fb6b938525a75536844d7b77ce151",
+      "role": "grepable"
+    },
+    {
+      "path": "raw/scan_dvwa_20261110T185301Z.log",
+      "sha256": "8241c82113c4597653592911a1a1bd4da17c1969ff812c48488b8e246ac1f172",
+      "role": "stdout"
+    }
+  ]
+}

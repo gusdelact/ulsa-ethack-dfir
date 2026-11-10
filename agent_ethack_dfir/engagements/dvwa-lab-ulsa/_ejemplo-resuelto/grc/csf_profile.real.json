@@ -1,0 +1,113 @@
+{
+  "_comment": "Perfil_CSF REAL del engagement, producido por el subagente GRC cableado al Power grc-nist-csf. target_tier = 3 (Repeatable). INVARIANTE del design.md: subcategorias con gap==true == conjunto de csf_subcategory del POA&M == subcategorias referenciadas por los riesgos de risk_register.real.json (Req 6.9, 19.5). IDs CSF verificados contra powers/grc-nist-csf/core/csf-2.0-core.csv (R1). Textos oficiales incluidos para didactica. Deja intacta la plantilla csf_profile.json.",
+  "engagement_id": "dvwa-lab-ulsa",
+  "generated_by": "subagente-grc + power:grc-nist-csf",
+  "generated_at_utc": "2026-11-10T19:03:00Z",
+  "target_tier": 3,
+  "current_tier_governance": 1,
+  "current_tier_management": 1,
+  "tier_justification": "El engagement tiene politicas ad-hoc (scope.yaml existe pero no hay politica formal del SGSI); se evaluan riesgos pero sin apetito aprobado; sin monitoreo continuo. Objetivo 3 (Repeatable) en 12 meses requiere politicas formales, metricas y Blue Team.",
+  "subcategories": [
+    {
+      "id": "GV.OC-03",
+      "text_official": "Legal, regulatory, and contractual requirements regarding cybersecurity - including privacy and civil liberties obligations - are understood and managed",
+      "current": "achieved",
+      "target": "achieved",
+      "gap": false,
+      "evidence_refs": ["scope.yaml:ethical_principles", "scope.yaml:authorized_window"],
+      "note": "El engagement documenta principios eticos (authorization-first, do-no-harm, legal-compliance), ventana autorizada y acciones prohibidas"
+    },
+    {
+      "id": "RS.AN-03",
+      "text_official": "Analysis is performed to establish what has taken place during an incident and the root cause of the incident",
+      "current": "achieved",
+      "target": "achieved",
+      "gap": false,
+      "evidence_refs": ["inc-0002", "webex-dvwa-01-0001"],
+      "note": "Analisis de causa raiz realizado en inc-0002 (concatenacion sin escape en shell_exec del modulo exec)"
+    },
+    {
+      "id": "RS.AN-07",
+      "text_official": "Incident data and metadata are collected, and their integrity and provenance are preserved",
+      "current": "achieved",
+      "target": "achieved",
+      "gap": false,
+      "evidence_refs": ["scan-dvwa-01-0001/chain_of_custody.jsonl", "webex-dvwa-01-0001/chain_of_custody.jsonl"],
+      "note": "Cadena de custodia enlazada por prev_sha256 + write-once en raw/"
+    },
+    {
+      "id": "PR.PS-06",
+      "text_official": "Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle",
+      "current": "not-achieved",
+      "target": "achieved",
+      "gap": true,
+      "evidence_refs": ["webex-dvwa-01-0001", "inc-0002"],
+      "note": "CWE-78 demostrado en nivel Low de DVWA; concatenacion shell_exec sin escape es fallo de SDLC"
+    },
+    {
+      "id": "PR.AA-05",
+      "text_official": "Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties",
+      "current": "not-achieved",
+      "target": "achieved",
+      "gap": true,
+      "evidence_refs": ["webex-dvwa-01-0001/raw/maintaining/sec_reused.html", "inc-0002:ioc-05"],
+      "note": "Cookie PHPSESSID sin HttpOnly/Secure/SameSite reutilizable; cookie 'security' decide nivel desde el cliente"
+    },
+    {
+      "id": "PR.PS-01",
+      "text_official": "Configuration management practices are established and applied",
+      "current": "partial",
+      "target": "achieved",
+      "gap": true,
+      "evidence_refs": ["scan-dvwa-01-0001/raw/scan_dvwa_20261110T185301Z.xml"],
+      "note": "Apache 2.4.25 con banner expuesto, sin HSTS/CSP/XFO/XCTO/HTTPS; falta hardening de cabeceras HTTP"
+    },
+    {
+      "id": "DE.CM-01",
+      "text_official": "Networks and network services are monitored to find potentially adverse events",
+      "current": "not-achieved",
+      "target": "achieved",
+      "gap": true,
+      "evidence_refs": ["inc-0002"],
+      "note": "No hay registro de deteccion del escaneo nmap ni del PoC CWE-78; Blue Team es hueco de baseline"
+    }
+  ],
+  "poam": [
+    {
+      "poam_id": "poam-01",
+      "csf_subcategory": "PR.PS-06",
+      "milestone": "Parchar concatenacion shell_exec en modulo exec de DVWA; validar con reescaneo + revision de codigo",
+      "owner": "lider-tecnico (prod: SDLC)",
+      "due_date": "2026-11-17",
+      "risk_id": "r-01",
+      "expected_residual_score": 3
+    },
+    {
+      "poam_id": "poam-02",
+      "csf_subcategory": "PR.AA-05",
+      "milestone": "HttpOnly+Secure+SameSite=Strict en PHPSESSID; rotacion tras login; retirar cookie 'security' y moverla al server",
+      "owner": "lider-tecnico (prod: backend)",
+      "due_date": "2026-11-17",
+      "risk_id": "r-02",
+      "expected_residual_score": 6
+    },
+    {
+      "poam_id": "poam-03",
+      "csf_subcategory": "PR.PS-01",
+      "milestone": "Cabeceras HSTS/XFO/XCTO/CSP; ocultar banner; habilitar HTTPS con cert valido",
+      "owner": "lider-tecnico (prod: ops)",
+      "due_date": "2026-11-30",
+      "risk_id": "r-03",
+      "expected_residual_score": 4
+    },
+    {
+      "poam_id": "poam-04",
+      "csf_subcategory": "DE.CM-01",
+      "milestone": "Enviar access/error log al SIEM; alertas sobre payloads sospechosos; dashboard de 4xx/5xx; revision semanal",
+      "owner": "blue-team (hueco de baseline; tarea del alumno)",
+      "due_date": "2026-12-15",
+      "risk_id": "r-04",
+      "expected_residual_score": 6
+    }
+  ]
+}

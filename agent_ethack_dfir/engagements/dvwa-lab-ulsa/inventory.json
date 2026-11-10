@@ -1,0 +1,466 @@
+{
+  "_comment": "NO EDITAR A MANO. Generado por el Catalogador (scripts/catalog.py::build_inventory) en cada validación via 'make validate'/'make catalog' a partir del árbol powers/ (Req 9.4, 13.1, 13.2, 13.4). coverage_gaps y tooled_by_owner son instantáneas de los métodos del inventario; la lógica vive en la clase Inventory.",
+  "engagement_id": "dvwa-lab-ulsa",
+  "generated_by": "scripts/catalog.py::build_inventory",
+  "generated_at_utc": "2026-11-10T16:32:00Z",
+  "axes": {
+    "ecCouncilPhases": [
+      "Reconnaissance",
+      "Scanning",
+      "Gaining Access",
+      "Maintaining Access",
+      "Covering Tracks"
+    ],
+    "forensicsStages": [
+      "Detect",
+      "Isolate",
+      "Collect",
+      "Preserve",
+      "Analyze",
+      "Report"
+    ]
+  },
+  "summary": {
+    "total_powers": 9,
+    "baseline_powers": 9,
+    "tooled_powers": 9,
+    "covered_ec_phases": [
+      "Gaining Access",
+      "Maintaining Access",
+      "Reconnaissance",
+      "Scanning"
+    ],
+    "covered_forensics_stages": [
+      "Analyze",
+      "Collect",
+      "Detect",
+      "Isolate",
+      "Preserve",
+      "Report"
+    ]
+  },
+  "powers": [
+    {
+      "name": "dfir-linux",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "digital-forensics",
+      "role": "Digital Forensics",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "forensics",
+      "track": null,
+      "declared_ecCouncilPhase": null,
+      "declared_forensicsStage": "Analyze",
+      "ecCouncilPhase": null,
+      "forensicsStage": "Analyze",
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [],
+      "covers_forensics_stages": [
+        "Detect",
+        "Isolate",
+        "Collect",
+        "Preserve",
+        "Analyze",
+        "Report"
+      ],
+      "tools": [
+        "dd",
+        "dc3dd",
+        "LiME",
+        "Volatility 3",
+        "Autopsy",
+        "auditd"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-digital-forensics"
+      ],
+      "docStatus": {
+        "root": "powers/dfir-linux/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "exploitation-metasploit",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "red-team",
+      "role": "Red Team",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "offensive",
+      "track": null,
+      "declared_ecCouncilPhase": "Gaining Access",
+      "declared_forensicsStage": null,
+      "ecCouncilPhase": "Gaining Access",
+      "forensicsStage": null,
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [
+        "Gaining Access",
+        "Maintaining Access"
+      ],
+      "covers_forensics_stages": [],
+      "tools": [
+        "Metasploit",
+        "msfvenom",
+        "Meterpreter"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-red-team"
+      ],
+      "docStatus": {
+        "root": "powers/exploitation-metasploit/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "footprinting-enumeration",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "red-team",
+      "role": "Red Team",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "offensive",
+      "track": null,
+      "declared_ecCouncilPhase": "Scanning",
+      "declared_forensicsStage": null,
+      "ecCouncilPhase": "Scanning",
+      "forensicsStage": null,
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [
+        "Reconnaissance",
+        "Scanning"
+      ],
+      "covers_forensics_stages": [],
+      "tools": [
+        "nmap"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-red-team"
+      ],
+      "docStatus": {
+        "root": "powers/footprinting-enumeration/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "grc-nist-csf",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "grc",
+      "role": "GRC",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "governance",
+      "track": "GRC",
+      "declared_ecCouncilPhase": null,
+      "declared_forensicsStage": null,
+      "ecCouncilPhase": null,
+      "forensicsStage": null,
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [],
+      "covers_forensics_stages": [],
+      "tools": [
+        "NIST CSF 2.0",
+        "risk-register",
+        "gap-analysis",
+        "POA&M"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-grc"
+      ],
+      "docStatus": {
+        "root": "powers/grc-nist-csf/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "incident-handling-nist",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "incident-responder",
+      "role": "Incident Responder",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "response",
+      "track": "IR",
+      "declared_ecCouncilPhase": null,
+      "declared_forensicsStage": null,
+      "ecCouncilPhase": null,
+      "forensicsStage": null,
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [],
+      "covers_forensics_stages": [],
+      "tools": [
+        "NIST SP 800-61",
+        "MITRE ATT&CK",
+        "Cyber Kill Chain",
+        "playbooks"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-incident-responder"
+      ],
+      "docStatus": {
+        "root": "powers/incident-handling-nist/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "incident-response-lab",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "incident-responder",
+      "role": "Incident Responder",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "response",
+      "track": "IR",
+      "declared_ecCouncilPhase": null,
+      "declared_forensicsStage": null,
+      "ecCouncilPhase": null,
+      "forensicsStage": null,
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [],
+      "covers_forensics_stages": [],
+      "tools": [
+        "TheHive",
+        "VirusTotal",
+        "Wazuh",
+        "Sysmon"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-incident-responder"
+      ],
+      "docStatus": {
+        "root": "powers/incident-response-lab/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "network-forensics",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "digital-forensics",
+      "role": "Digital Forensics",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "forensics",
+      "track": null,
+      "declared_ecCouncilPhase": null,
+      "declared_forensicsStage": "Collect",
+      "ecCouncilPhase": null,
+      "forensicsStage": "Collect",
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [],
+      "covers_forensics_stages": [
+        "Detect",
+        "Collect",
+        "Analyze",
+        "Report"
+      ],
+      "tools": [
+        "Wireshark",
+        "tcpdump",
+        "Snort",
+        "Suricata",
+        "Zeek"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-digital-forensics"
+      ],
+      "docStatus": {
+        "root": "powers/network-forensics/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "osint-passive-recon",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "red-team",
+      "role": "Red Team",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "offensive",
+      "track": null,
+      "declared_ecCouncilPhase": "Reconnaissance",
+      "declared_forensicsStage": null,
+      "ecCouncilPhase": "Reconnaissance",
+      "forensicsStage": null,
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [
+        "Reconnaissance"
+      ],
+      "covers_forensics_stages": [],
+      "tools": [
+        "RDAP",
+        "WHOIS",
+        "DNS",
+        "crt.sh",
+        "Wayback Machine",
+        "ExifTool",
+        "GitHub dorks"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-red-team"
+      ],
+      "docStatus": {
+        "root": "powers/osint-passive-recon/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    },
+    {
+      "name": "vulnerability-assessment",
+      "format": "POWER.md",
+      "origin": "baseline",
+      "baseline": true,
+      "xethack_declared": true,
+      "team": "red-team",
+      "role": "Red Team",
+      "owner": "Gustavo De la Cruz Tovar",
+      "kind": "offensive",
+      "track": null,
+      "declared_ecCouncilPhase": "Gaining Access",
+      "declared_forensicsStage": null,
+      "ecCouncilPhase": "Gaining Access",
+      "forensicsStage": null,
+      "phase_source": "knowledge-map",
+      "covers_ec_phases": [
+        "Scanning",
+        "Gaining Access"
+      ],
+      "covers_forensics_stages": [],
+      "tools": [
+        "Nessus",
+        "OpenVAS",
+        "CVSS"
+      ],
+      "tooled": true,
+      "invokedBy": [
+        "subagente-red-team"
+      ],
+      "docStatus": {
+        "root": "powers/vulnerability-assessment/docs",
+        "prompt": false,
+        "sessions": false,
+        "feedback": false,
+        "complete": false,
+        "missing": [
+          "prompt.md",
+          "sessions/",
+          "feedback.md"
+        ]
+      },
+      "notes": "POWER.md base sin x-ethack; fase/etapa/rol/tools asignados por el mapeo de conocimiento del Catalogador (xethack_declared=false)."
+    }
+  ],
+  "agents": [],
+  "coverage_gaps": [
+    {
+      "axis": "ecCouncilPhase",
+      "name": "Covering Tracks",
+      "gap": true,
+      "team": "red-team",
+      "reason": "Ninguna base cubre la fase EC-Council 'Covering Tracks'."
+    },
+    {
+      "axis": "defensive",
+      "name": "Blue Team detección/hardening",
+      "gap": true,
+      "team": "blue-team",
+      "reason": "No hay Power base de detección/hardening del Blue Team; se crea desde cero."
+    }
+  ],
+  "tooled_by_owner": {
+    "Gustavo De la Cruz Tovar": 9
+  }
+}

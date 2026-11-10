@@ -1,0 +1,152 @@
+{
+  "_comment": "Estado del engagement. Extiende el state.json del starter con completed_phases (lógica de orden del Orquestador, Req 1.3, 1.5) y el bloque incident_response (Req 18.2). phase ∈ secuencia EC-Council; nist_phase ∈ las 4 fases NIST SP 800-61. Ver design.md 'Estado del engagement'.",
+  "engagement_id": "dvwa-lab-ulsa",
+  "status": "active",
+  "phase": "Scanning",
+  "completed_phases": [
+    "Reconnaissance"
+  ],
+  "ooda_phase": "OBSERVE",
+  "iteration": 2,
+  "findings": [],
+  "last_evidence": null,
+  "human_review": "approved",
+  "incident_response": {
+    "_comment": "Enlaza el estado con el incidente activo y la fase NIST actual (Req 18.2). nist_phase ∈ {Preparation, Detection & Analysis, Containment, Eradication & Recovery, Post-Incident Activity}; ir_iteration cuenta las vueltas del ciclo iterativo (Req 18.5, 18.7).",
+    "active_incident": "inc-0001",
+    "nist_phase": "Detection & Analysis",
+    "ir_iteration": 1
+  },
+  "enabled_phases": {
+    "Reconnaissance": {
+      "enabled": true,
+      "covered_by": [
+        "footprinting-enumeration",
+        "osint-passive-recon"
+      ]
+    },
+    "Scanning": {
+      "enabled": true,
+      "covered_by": [
+        "footprinting-enumeration",
+        "vulnerability-assessment"
+      ]
+    },
+    "Gaining Access": {
+      "enabled": true,
+      "covered_by": [
+        "exploitation-metasploit",
+        "vulnerability-assessment"
+      ]
+    },
+    "Maintaining Access": {
+      "enabled": true,
+      "covered_by": [
+        "exploitation-metasploit"
+      ]
+    },
+    "Covering Tracks": {
+      "enabled": false,
+      "covered_by": [],
+      "gap": true,
+      "reason": "Ninguna base cubre la fase EC-Council 'Covering Tracks'.",
+      "pending_team": "red-team"
+    }
+  },
+  "enabled_forensics_stages": {
+    "Detect": {
+      "enabled": true,
+      "covered_by": [
+        "dfir-linux",
+        "network-forensics"
+      ]
+    },
+    "Isolate": {
+      "enabled": true,
+      "covered_by": [
+        "dfir-linux"
+      ]
+    },
+    "Collect": {
+      "enabled": true,
+      "covered_by": [
+        "dfir-linux",
+        "network-forensics"
+      ]
+    },
+    "Preserve": {
+      "enabled": true,
+      "covered_by": [
+        "dfir-linux"
+      ]
+    },
+    "Analyze": {
+      "enabled": true,
+      "covered_by": [
+        "dfir-linux",
+        "network-forensics"
+      ]
+    },
+    "Report": {
+      "enabled": true,
+      "covered_by": [
+        "dfir-linux",
+        "network-forensics"
+      ]
+    }
+  },
+  "pending_coverage": [
+    {
+      "axis": "ecCouncilPhase",
+      "name": "Covering Tracks",
+      "team": "red-team",
+      "reason": "Ninguna base cubre la fase EC-Council 'Covering Tracks'."
+    },
+    {
+      "axis": "defensive",
+      "name": "Blue Team detección/hardening",
+      "team": "blue-team",
+      "reason": "No hay Power base de detección/hardening del Blue Team; se crea desde cero."
+    }
+  ],
+  "artifact_links": {
+    "_comment": "Gancho de vínculo gobernanza/forense ↔ engagement y Cadena_Custodia (Req 13.5). Rutas relativas al directorio del engagement; el estado referencia grc/, incidents/ y evidence/ (record.json + chain_of_custody.jsonl).",
+    "grc": [
+      "grc/csf_profile.json",
+      "grc/risk_register.json"
+    ],
+    "incidents": [
+      {
+        "id": "inc-0001",
+        "incident": "incidents/inc-0001/incident.json"
+      }
+    ],
+    "evidence": [
+      {
+        "id": "mem-dvwa-01-0001",
+        "record": "evidence/mem-dvwa-01-0001/record.json",
+        "chain_of_custody": "evidence/mem-dvwa-01-0001/chain_of_custody.jsonl"
+      }
+    ]
+  },
+  "phase_enablement_meta": {
+    "_comment": "Derivado de la cobertura del inventario por scripts/enable_phases.py (tarea 13.2, Req 8.3, 13.3, 13.5). Una fase/etapa se habilita cuando ≥1 Power del inventario la cubre; los huecos quedan deshabilitados y pendientes.",
+    "generated_by": "scripts/enable_phases.py::enable_phases",
+    "generated_at_utc": "2026-11-10T16:26:22Z",
+    "source_inventory": "engagements/dvwa-lab-ulsa/inventory.json",
+    "enabled_ec_phases": [
+      "Gaining Access",
+      "Maintaining Access",
+      "Reconnaissance",
+      "Scanning"
+    ],
+    "enabled_forensics_stages": [
+      "Analyze",
+      "Collect",
+      "Detect",
+      "Isolate",
+      "Preserve",
+      "Report"
+    ]
+  }
+}

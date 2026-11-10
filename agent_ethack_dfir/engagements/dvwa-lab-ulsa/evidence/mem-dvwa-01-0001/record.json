@@ -1,0 +1,14 @@
+{
+  "_comment": "PLANTILLA/EJEMPLO documentado (no es evidencia real). Volcado de RAM del Contenedor_Objetivo dvwa-01 => volatility_rank 2 (RAM) en el Orden_Volatilidad RFC 3227. Incluye comando/UTC/herramienta/versión/resultado para Documentation & Reproducibility (Req 16.4) y sha256 de verificación (Req 5.3). Ver evidence/README.md.",
+  "evidence_id": "mem-dvwa-01-0001",
+  "source_asset": "dvwa-01",
+  "collected_by": "alumno-df-1",
+  "collected_at_utc": "2026-03-10T14:03:22Z",
+  "tool": "LiME",
+  "tool_version": "1.9.1",
+  "command": "insmod lime.ko \"path=/evidence/mem-dvwa-01-0001/dump.lime format=lime\"",
+  "result": "Volcado de memoria de 2048 MiB adquirido correctamente desde el Contenedor_Objetivo dvwa-01.",
+  "sha256": "9f2c0b4d8e1a6c3f5b7d9e2a4c6f8a0b2d4e6f8a1c3e5f7a9b1d3f5a7c9e1b3d",
+  "volatility_rank": 2,
+  "storage": "append-only://evidence/mem-dvwa-01-0001/dump.lime"
+}

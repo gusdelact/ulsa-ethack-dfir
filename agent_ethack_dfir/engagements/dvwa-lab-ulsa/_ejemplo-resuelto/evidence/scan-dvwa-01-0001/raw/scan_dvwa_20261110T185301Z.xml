@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.99 scan initiated Tue Nov 10 18:53:01 2026 as: /usr/lib/nmap/nmap -&#45;privileged -Pn -sV -p 80 -&#45;script=http-title,http-server-header,http-headers -oA scan_dvwa_20261110T185301Z 10.50.0.224 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -&#45;privileged -Pn -sV -p 80 -&#45;script=http-title,http-server-header,http-headers -oA scan_dvwa_20261110T185301Z 10.50.0.224" start="1794336781" startstr="Tue Nov 10 18:53:01 2026" version="7.99" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="1" services="80"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.50.0.224" addrtype="ipv4"/>
+<address addr="02:FF:FE:CC:91:73" addrtype="mac"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1794336784" endtime="1794336791"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.50.0.224" addrtype="ipv4"/>
+<address addr="02:FF:FE:CC:91:73" addrtype="mac"/>
+<hostnames>
+<hostname name="ip-10-50-0-224.ec2.internal" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="126"/><service name="http" product="Apache httpd" version="2.4.25" extrainfo="(Debian)" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.4.25</cpe></service><script id="http-headers" output="&#xa;  Date: Tue, 10 Nov 2026 18:53:11 GMT&#xa;  Server: Apache/2.4.25 (Debian)&#xa;  Set-Cookie: PHPSESSID=0rekqrd20o9ff4s9cci53qv270; path=/&#xa;  Expires: Tue, 23 Jun 2009 12:00:00 GMT&#xa;  Cache-Control: no-cache, must-revalidate&#xa;  Pragma: no-cache&#xa;  Set-Cookie: PHPSESSID=0rekqrd20o9ff4s9cci53qv270; path=/&#xa;  Set-Cookie: security=low&#xa;  Connection: close&#xa;  Content-Type: text/html;charset=utf-8&#xa;  &#xa;  (Request type: HEAD)&#xa;"/><script id="http-title" output="Login :: Damn Vulnerable Web Application (DVWA) v1.10 *Develop...&#xa;Requested resource was login.php"><elem key="title">Login :: Damn Vulnerable Web Application (DVWA) v1.10 *Development*</elem>
+<elem key="redirect_url">login.php</elem>
+</script><script id="http-server-header" output="Apache/2.4.25 (Debian)"><elem>Apache/2.4.25 (Debian)</elem>
+</script></port>
+</ports>
+<times srtt="107" rttvar="3799" to="100000"/>
+</host>
+<runstats><finished time="1794336791" timestr="Tue Nov 10 18:53:11 2026" summary="Nmap done at Tue Nov 10 18:53:11 2026; 1 IP address (1 host up) scanned in 9.86 seconds" elapsed="9.86" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
